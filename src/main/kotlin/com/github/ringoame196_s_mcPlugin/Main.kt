@@ -9,7 +9,7 @@ class Main : JavaPlugin() {
     override fun onEnable() {
         super.onEnable()
         server.pluginManager.registerEvents(Events(), plugin)
-        val command = getCommand("command")
+        val command = getCommand(CommandConst.COMMAND_NAME)
         command!!.setExecutor(Command())
     }
 }
