@@ -2,7 +2,7 @@ package com.github.ringoame196_s_mcPlugin
 
 import com.github.ringoame196_s_mcPlugin.commands.Command
 import com.github.ringoame196_s_mcPlugin.commands.CommandConst
-import com.github.ringoame196_s_mcPlugin.events.InventoryClickEvent
+import com.github.ringoame196_s_mcPlugin.events.RecipeGUIEvent
 import com.github.ringoame196_s_mcPlugin.managers.RecipeManager
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -11,7 +11,7 @@ class Main : JavaPlugin() {
     override fun onEnable() {
         super.onEnable()
         RecipeManager.setRecipe()
-        server.pluginManager.registerEvents(InventoryClickEvent(), plugin)
+        server.pluginManager.registerEvents(RecipeGUIEvent(plugin), plugin)
         val command = getCommand(CommandConst.COMMAND_NAME)
         command!!.setExecutor(Command())
     }
