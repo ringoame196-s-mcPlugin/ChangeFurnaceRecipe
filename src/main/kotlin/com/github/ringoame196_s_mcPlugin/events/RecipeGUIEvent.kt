@@ -26,25 +26,33 @@ class RecipeGUIEvent(private val plugin: Plugin) : Listener {
         if (clickInventory == player.inventory) return // プレイヤーのインベントリでキャンセル発生を阻止
 
         when (slot) {
-            RecipeGUIManager.inItemSlot -> {
+            RecipeGUIManager.IN_ITEM_SLOT -> {
                 object : BukkitRunnable() { // 設置後のインベントリを取得するため 1tick遅延
                     override fun run() {
                         setResultItem(gui)
                     }
                 }.runTaskLater(plugin, 1L) // 1 tick 遅延実行
             }
-            RecipeGUIManager.resultItemSlot -> {} // アイテムが置き外しできるように
-            RecipeGUIManager.clickItemSlot -> {
+            RecipeGUIManager.RESULT_ITEM_SLOT -> {} // アイテムが置き外しできるように
+            RecipeGUIManager.CLICK_ITEM_SLOT -> {
                 e.isCancelled = true
+                saveResultItem(gui)
             }
             else -> e.isCancelled = true
         }
     }
 
     private fun setResultItem(inventory: InventoryView) {
-        val item = inventory.getItem(RecipeGUIManager.inItemSlot)
+        val item = inventory.getItem(RecipeGUIManager.IN_ITEM_SLOT)
         val material = item?.type ?: Material.AIR
         val resultItemType = RecipeManager.acquisitionRecipe(material)
-        inventory.setItem(RecipeGUIManager.resultItemSlot, ItemStack(resultItemType))
+        inventory.setItem(RecipeGUIManager.RESULT_ITEM_SLOT, ItemStack(resultItemType))
+    }
+
+    private fun saveResultItem(inventory: InventoryView) {
+        val inputItem = inventory.getItem(RecipeGUIManager.IN_ITEM_SLOT) ?: return
+        val resultItem = inventory.getItem(RecipeGUIManager.RESULT_ITEM_SLOT) ?: ItemStack(Material.AIR)
+
+        RecipeManager.saveRecipe(inputItem, resultItem)
     }
 }

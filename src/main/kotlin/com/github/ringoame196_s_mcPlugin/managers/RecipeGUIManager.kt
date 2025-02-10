@@ -10,9 +10,9 @@ import org.bukkit.inventory.ItemStack
 object RecipeGUIManager {
     val sideItem = makeSideItem()
     val clickItem = makeClickItem()
-    val inItemSlot = 2
-    val resultItemSlot = 5
-    val clickItemSlot = 8
+    const val IN_ITEM_SLOT = 2
+    const val RESULT_ITEM_SLOT = 5
+    const val CLICK_ITEM_SLOT = 8
 
     fun makeGUI(): Inventory {
         val guiSize = 9
@@ -21,9 +21,9 @@ object RecipeGUIManager {
         for (i in 0..gui.size - 1) {
             gui.setItem(i, sideItem)
         }
-        gui.setItem(inItemSlot, ItemStack(Material.AIR))
-        gui.setItem(resultItemSlot, ItemStack(Material.AIR))
-        gui.setItem(clickItemSlot, clickItem)
+        gui.setItem(IN_ITEM_SLOT, ItemStack(Material.AIR))
+        gui.setItem(RESULT_ITEM_SLOT, ItemStack(Material.AIR))
+        gui.setItem(CLICK_ITEM_SLOT, clickItem)
 
         return gui
     }
