@@ -1,6 +1,7 @@
 package com.github.ringoame196_s_mcPlugin.managers
 
 import com.github.ringoame196_s_mcPlugin.Data
+import com.github.ringoame196_s_mcPlugin.RecipeData
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
