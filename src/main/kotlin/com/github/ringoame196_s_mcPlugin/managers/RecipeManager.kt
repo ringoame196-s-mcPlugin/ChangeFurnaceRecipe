@@ -23,7 +23,7 @@ object RecipeManager {
     }
 
     fun saveRecipe(inputItem: ItemStack, resultItem: ItemStack) {
-        val key = NamespacedKey(Data.PLUGIN_NAME.lowercase(), "${inputItem.type.toString().lowercase()}_to_${resultItem.type.toString().lowercase()}") // レシピのキー（ユニーク識別用）
+        val key = NamespacedKey(Data.PLUGIN_NAME.lowercase(), inputItem.type.toString().lowercase()) // レシピのキー（ユニーク識別用）
 
         if (Bukkit.getRecipe(key) != null) Bukkit.removeRecipe(key) // 重複阻止のため 削除する
         val furnaceRecipe = FurnaceRecipe(key, resultItem, inputItem.type, 0.1f, 200)
