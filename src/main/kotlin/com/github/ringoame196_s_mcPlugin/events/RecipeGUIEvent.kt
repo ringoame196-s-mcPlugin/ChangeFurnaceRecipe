@@ -3,7 +3,9 @@ package com.github.ringoame196_s_mcPlugin.events
 import com.github.ringoame196_s_mcPlugin.Data
 import com.github.ringoame196_s_mcPlugin.managers.RecipeGUIManager
 import com.github.ringoame196_s_mcPlugin.managers.RecipeManager
+import org.bukkit.ChatColor
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -11,7 +13,6 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.InventoryView
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.Plugin
-import org.bukkit.scheduler.BukkitRunnable
 
 class RecipeGUIEvent(private val plugin: Plugin) : Listener {
     @EventHandler
@@ -26,33 +27,38 @@ class RecipeGUIEvent(private val plugin: Plugin) : Listener {
         if (clickInventory == player.inventory) return // プレイヤーのインベントリでキャンセル発生を阻止
 
         when (slot) {
-            RecipeGUIManager.IN_ITEM_SLOT -> {
-                object : BukkitRunnable() { // 設置後のインベントリを取得するため 1tick遅延
-                    override fun run() {
-                        setResultItem(gui)
-                    }
-                }.runTaskLater(plugin, 1L) // 1 tick 遅延実行
-            }
-            RecipeGUIManager.RESULT_ITEM_SLOT -> {} // アイテムが置き外しできるように
-            RecipeGUIManager.CLICK_ITEM_SLOT -> {
+            RecipeGUIManager.RESULT_ITEM_SLOT, RecipeGUIManager.IN_ITEM_SLOT -> {} // アイテムが置き外しできるように
+            RecipeGUIManager.SETTING_ITEM_SLOT -> {
                 e.isCancelled = true
-                saveResultItem(gui)
+                saveResultItem(gui, player)
+            }
+            RecipeGUIManager.BAKE_ITEM_SLOT -> {
+                e.isCancelled = true
+                setResultItem(gui, player)
             }
             else -> e.isCancelled = true
         }
     }
 
-    private fun setResultItem(inventory: InventoryView) {
+    private fun setResultItem(inventory: InventoryView, player: Player) {
         val item = inventory.getItem(RecipeGUIManager.IN_ITEM_SLOT)
         val material = item?.type ?: Material.AIR
         val resultItemType = RecipeManager.acquisitionRecipe(material)
         inventory.setItem(RecipeGUIManager.RESULT_ITEM_SLOT, ItemStack(resultItemType))
+
+        val sound = Sound.UI_BUTTON_CLICK
+        player.playSound(player, sound, 1f, 1f)
     }
 
-    private fun saveResultItem(inventory: InventoryView) {
+    private fun saveResultItem(inventory: InventoryView, player: Player) {
         val inputItem = inventory.getItem(RecipeGUIManager.IN_ITEM_SLOT) ?: return
         val resultItem = inventory.getItem(RecipeGUIManager.RESULT_ITEM_SLOT) ?: ItemStack(Material.AIR)
 
         RecipeManager.saveRecipe(inputItem, resultItem)
+
+        val sound = Sound.BLOCK_ANVIL_USE
+        player.playSound(player, sound, 1f, 1f)
+        val message = "${ChatColor.GOLD}${resultItem.type}のレシピを変更しました"
+        player.sendMessage(message)
     }
 }

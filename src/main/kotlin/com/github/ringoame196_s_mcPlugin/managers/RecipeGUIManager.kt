@@ -9,10 +9,12 @@ import org.bukkit.inventory.ItemStack
 
 object RecipeGUIManager {
     val sideItem = makeSideItem()
-    val clickItem = makeClickItem()
+    val bakeItem = makeBakeItem()
+    val setTingItem = makeSetTingItem()
     const val IN_ITEM_SLOT = 2
     const val RESULT_ITEM_SLOT = 5
-    const val CLICK_ITEM_SLOT = 8
+    const val BAKE_ITEM_SLOT = 7
+    const val SETTING_ITEM_SLOT = 8
 
     fun makeGUI(): Inventory {
         val guiSize = 9
@@ -23,7 +25,8 @@ object RecipeGUIManager {
         }
         gui.setItem(IN_ITEM_SLOT, ItemStack(Material.AIR))
         gui.setItem(RESULT_ITEM_SLOT, ItemStack(Material.AIR))
-        gui.setItem(CLICK_ITEM_SLOT, clickItem)
+        gui.setItem(BAKE_ITEM_SLOT, bakeItem)
+        gui.setItem(SETTING_ITEM_SLOT, setTingItem)
 
         return gui
     }
@@ -37,9 +40,18 @@ object RecipeGUIManager {
         return item
     }
 
-    private fun makeClickItem(): ItemStack {
+    private fun makeBakeItem(): ItemStack {
         val item = ItemStack(Material.FURNACE)
-        val itemName = "${ChatColor.GREEN}更新"
+        val itemName = "${ChatColor.GREEN}変更"
+        val meta = item.itemMeta
+        meta?.setDisplayName(itemName)
+        item.itemMeta = meta
+        return item
+    }
+
+    private fun makeSetTingItem(): ItemStack {
+        val item = ItemStack(Material.ANVIL)
+        val itemName = "${ChatColor.GREEN}設定"
         val meta = item.itemMeta
         meta?.setDisplayName(itemName)
         item.itemMeta = meta
