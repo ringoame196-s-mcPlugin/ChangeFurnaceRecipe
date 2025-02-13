@@ -1,14 +1,14 @@
 package com.github.ringoame196_s_mcPlugin.managers
 
-import com.github.ringoame196_s_mcPlugin.Data
-import com.github.ringoame196_s_mcPlugin.RecipeData
+import com.github.ringoame196_s_mcPlugin.data.Data
+import com.github.ringoame196_s_mcPlugin.data.RecipeData
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.FurnaceRecipe
 import org.bukkit.inventory.ItemStack
 
-object RecipeManager {
+class RecipeManager {
     fun setRecipe() {
         val recipes = Bukkit.getServer().recipeIterator()
         while (recipes.hasNext()) {

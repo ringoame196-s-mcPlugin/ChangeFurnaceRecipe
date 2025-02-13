@@ -8,10 +8,11 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
     private val plugin = this
+    private val recipeManager = RecipeManager()
     override fun onEnable() {
         super.onEnable()
-        RecipeManager.setRecipe()
-        server.pluginManager.registerEvents(RecipeGUIEvent(plugin), plugin)
+        recipeManager.setRecipe()
+        server.pluginManager.registerEvents(RecipeGUIEvent(), plugin)
         val command = getCommand(CommandConst.COMMAND_NAME)
         command!!.setExecutor(Command())
     }

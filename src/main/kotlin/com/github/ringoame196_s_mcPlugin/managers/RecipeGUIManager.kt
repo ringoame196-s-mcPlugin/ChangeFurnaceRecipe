@@ -1,20 +1,20 @@
 package com.github.ringoame196_s_mcPlugin.managers
 
-import com.github.ringoame196_s_mcPlugin.Data
+import com.github.ringoame196_s_mcPlugin.data.Data
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 
-object RecipeGUIManager {
-    val sideItem = makeSideItem()
-    val bakeItem = makeBakeItem()
-    val setTingItem = makeSetTingItem()
-    const val IN_ITEM_SLOT = 2
-    const val RESULT_ITEM_SLOT = 5
-    const val BAKE_ITEM_SLOT = 7
-    const val SETTING_ITEM_SLOT = 8
+class RecipeGUIManager {
+    private val sideItem = makeSideItem()
+    private val bakeItem = makeBakeItem()
+    private val setTingItem = makeSetTingItem()
+    val inItemSlot = 2
+    val resultItemSlot = 5
+    val bakeItemSlot = 7
+    val setTingItemSlot = 8
 
     fun makeGUI(): Inventory {
         val guiSize = 9
@@ -23,10 +23,10 @@ object RecipeGUIManager {
         for (i in 0..gui.size - 1) {
             gui.setItem(i, sideItem)
         }
-        gui.setItem(IN_ITEM_SLOT, ItemStack(Material.AIR))
-        gui.setItem(RESULT_ITEM_SLOT, ItemStack(Material.AIR))
-        gui.setItem(BAKE_ITEM_SLOT, bakeItem)
-        gui.setItem(SETTING_ITEM_SLOT, setTingItem)
+        gui.setItem(inItemSlot, ItemStack(Material.AIR))
+        gui.setItem(resultItemSlot, ItemStack(Material.AIR))
+        gui.setItem(bakeItemSlot, bakeItem)
+        gui.setItem(setTingItemSlot, setTingItem)
 
         return gui
     }

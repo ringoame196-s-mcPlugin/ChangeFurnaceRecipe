@@ -9,6 +9,7 @@ import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 
 class Command : CommandExecutor, TabCompleter {
+    private val recipeGUIManager = RecipeGUIManager()
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender !is Player) {
@@ -16,7 +17,7 @@ class Command : CommandExecutor, TabCompleter {
             sender.sendMessage(message)
             return true
         }
-        val gui = RecipeGUIManager.makeGUI()
+        val gui = recipeGUIManager.makeGUI()
         sender.openInventory(gui)
 
         return true
