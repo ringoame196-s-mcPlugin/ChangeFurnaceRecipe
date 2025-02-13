@@ -4,7 +4,7 @@ import org.bukkit.ChatColor
 import org.bukkit.Material
 
 object Data {
-    val furnaceRecipes = mutableMapOf<Material, Material>()
+    val furnaceRecipes = mutableMapOf<Material, RecipeData>()
 
     val GUI_NAME = "${ChatColor.DARK_GRAY}かまどレシピ"
 
