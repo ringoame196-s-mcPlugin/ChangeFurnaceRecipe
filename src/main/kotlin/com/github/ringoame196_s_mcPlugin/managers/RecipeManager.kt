@@ -45,7 +45,6 @@ class RecipeManager {
     fun saveRecipe(inputType: Material, resultType: Material) {
         val oldKey = acquisitionKey(inputType)
 
-        // レシピに変更がない場合 そもそも実行しない
         if (acquisitionRecipe(inputType) == resultType) return
 
         // 古いレシピデータを削除する
