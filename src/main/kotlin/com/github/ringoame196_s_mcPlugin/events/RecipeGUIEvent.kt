@@ -61,7 +61,7 @@ class RecipeGUIEvent() : Listener {
 
         val sound = Sound.BLOCK_ANVIL_USE
         player.playSound(player, sound, 1f, 1f)
-        val message = "${ChatColor.GOLD}${resultItem.type}のレシピを変更しました"
+        val message = "${ChatColor.GOLD}${inputItem} -> ${resultItem.type}に変更しました"
         player.sendMessage(message)
     }
 
