@@ -1,5 +1,9 @@
 # ChangeFurnaceRecipe
 
+
+https://github.com/user-attachments/assets/298f4364-8e56-41dc-8148-2f1afe33446a
+
+
 ## プラグイン説明
 かまどのレシピをGUIで変更
 
