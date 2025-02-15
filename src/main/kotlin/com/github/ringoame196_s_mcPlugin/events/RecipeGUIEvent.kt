@@ -10,6 +10,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.inventory.InventoryView
 import org.bukkit.inventory.ItemStack
 
@@ -62,5 +63,15 @@ class RecipeGUIEvent() : Listener {
         player.playSound(player, sound, 1f, 1f)
         val message = "${ChatColor.GOLD}${resultItem.type}のレシピを変更しました"
         player.sendMessage(message)
+    }
+
+    @EventHandler
+    fun onInventoryClose(e: InventoryCloseEvent) {
+        val gui = e.view
+        val player = e.player
+        if (gui.title != Data.GUI_NAME) return
+
+        player.inventory.addItem(gui.getItem(recipeGUIManager.resultItemSlot) ?: ItemStack(Material.AIR))
+        player.inventory.addItem(gui.getItem(recipeGUIManager.inItemSlot) ?: ItemStack(Material.AIR))
     }
 }
