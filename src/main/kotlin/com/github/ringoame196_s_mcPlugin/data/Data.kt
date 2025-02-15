@@ -9,4 +9,5 @@ object Data {
     val GUI_NAME = "${ChatColor.DARK_GRAY}かまどレシピ"
 
     const val PLUGIN_NAME = "ChangeFurnaceRecipe"
+    lateinit var pluginDataFolderPath: String
 }
