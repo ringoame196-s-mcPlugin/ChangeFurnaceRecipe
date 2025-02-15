@@ -16,8 +16,8 @@ class Main : JavaPlugin() {
         Data.pluginDataFolderPath = plugin.dataFolder.path
 
         val recipeManager = RecipeManager()
-        recipeManager.loadRecipe()
         recipeManager.setRecipeMap()
+        recipeManager.loadRecipe()
         server.pluginManager.registerEvents(RecipeGUIEvent(), plugin)
         val command = getCommand(CommandConst.COMMAND_NAME)
         command!!.setExecutor(Command())
