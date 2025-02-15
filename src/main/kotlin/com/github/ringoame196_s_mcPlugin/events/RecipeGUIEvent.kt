@@ -56,7 +56,7 @@ class RecipeGUIEvent() : Listener {
         val inputItem = inventory.getItem(recipeGUIManager.inItemSlot) ?: return
         val resultItem = inventory.getItem(recipeGUIManager.resultItemSlot) ?: ItemStack(Material.AIR)
 
-        recipeManager.saveRecipe(inputItem, resultItem)
+        recipeManager.saveRecipe(inputItem.type, resultItem.type)
 
         val sound = Sound.BLOCK_ANVIL_USE
         player.playSound(player, sound, 1f, 1f)
